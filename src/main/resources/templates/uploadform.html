@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload</title>
+</head>
+<body>
+  <h1>Upload form</h1>
+    <form action="#" th:action="@{/uploadform}" th:object="${uploadform}" method="post" enctype="multipart/form-data">
+        <p>Номер постачальника: <input type="text" th:field="*{supplireNr}"></p>
+        <p>Номер замовлення для постачальника: <input type="text" th:field="*{orderNr}"></p>
+        <p>Номер видаткової: <input type="text" th:field="*{invoiceNr}"></p>
+        <p>Дата видаткової: <input type="text" th:field="*{invoiceDate}"></p>
+        <p>Файл: <input type="file" name="file" class="form-control-file"></p>
+        <p><input type="submit" value="Upload"></p>
+
+    </form>
+</body>
+</html>

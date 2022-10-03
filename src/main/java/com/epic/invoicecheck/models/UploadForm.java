@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class InvoiceForm {
+public class UploadForm {
+
     private String orderNr;
     private String supplireNr;
-    private byte[] file;
+    private String invoiceNr;
+    private String invoiceDate;
 }
