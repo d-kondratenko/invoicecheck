@@ -59,11 +59,17 @@ public class CheckService {
                 }
                 else if (j == 1) {
                     invoiceData.setQuantity(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
-                } else {
+                } else if (j == 2) {
                     if(formatter.formatCellValue(row.getCell(j)).isEmpty()){
                         invoiceData.setBrack(0.0);
-                    } else {
+                    } else{
                         invoiceData.setBrack(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
+                    }
+                } else {
+                    if(formatter.formatCellValue(row.getCell(j)).isEmpty()){
+                        invoiceData.setQuantityFakt(0.0);
+                    } else {
+                        invoiceData.setQuantityFakt(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
                     }
                 }
             }
@@ -75,27 +81,56 @@ public class CheckService {
 
     public ArrayList<Differents> getDiff(ArrayList<InvoiceData> dataList, List<OrderInfo> infoList, DeliveryInfo deliveryInfo, UploadForm uploadForm) {
         ArrayList<Differents> differentsList = new ArrayList<>();
+        log.info("Start check");
         for (int i = 0; i < dataList.size(); i++) {
             InvoiceData dat = dataList.get(i);
+            log.info("get invoice data");
             for (int j = 0; j < infoList.size(); j++) {
                 OrderInfo inf = infoList.get(j);
+                log.info("get order data");
                 if (dat.getProductNr().equals(inf.getProductNr())) {
+                    log.info("chek product equals");
                     if (dat.getQuantity() != inf.getQuantity()) {
+                        log.info("chek quantity equals");
                         Differents differents = Differents.builder().productNr(dat.getProductNr())
-                                        .quantityInvoice(dat.getQuantity())
-                                                .quantityOrder(inf.getQuantity())
+                                .quantityInvoice(dat.getQuantity())
+                                .quantityOrder(inf.getQuantity())
                                 .deliveryId(deliveryInfo.getDeliveryId())
                                 .invoiceNr(uploadForm.getInvoiceNr())
                                 .invoiceDate(uploadForm.getInvoiceDate())
                                 .brack(dat.getBrack())
+                                .quantityFakt(dat.getQuantityFakt())
                                 .build();
                         log.info(differents.toString());
+                        dataList.remove(i);
                         differentsRepository.save(differents);
                         differentsList.add(differents);
                     }
                 }
             }
         }
+
+            if(!dataList.isEmpty()) {
+                for (int k = 0; k < dataList.size(); k++) {
+                    InvoiceData dat1 = dataList.get(k);
+                    Differents differents = Differents.builder().productNr(dat1.getProductNr())
+                            .quantityInvoice(dat1.getQuantity())
+                            .quantityOrder(0.0)
+                            .deliveryId(deliveryInfo.getDeliveryId())
+                            .invoiceNr(uploadForm.getInvoiceNr())
+                            .invoiceDate(uploadForm.getInvoiceDate())
+                            .brack(dat1.getBrack())
+                            .quantityFakt(dat1.getQuantityFakt())
+                            .build();
+                    log.info(differents.toString());
+                    dataList.remove(k);
+                    differentsRepository.save(differents);
+                    differentsList.add(differents);
+                }
+            }
+
+
+
         return differentsList;
     }
 }

@@ -24,4 +24,5 @@ public class Differents {
     private double brack;
     private String invoiceNr;
     private String invoiceDate;
+    private double quantityFakt;
 }

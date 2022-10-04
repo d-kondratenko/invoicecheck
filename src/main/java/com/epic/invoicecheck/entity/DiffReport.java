@@ -24,11 +24,10 @@ public class DiffReport {
     private String zakaz;
     private String invoiceqty;
     private String prin;
-    private String prinCase;
+    private String fakt;
     private String nedost;
     private String izlish;
     private String notinorder;
     private String brak;
-    private String eanNr;
 
 }

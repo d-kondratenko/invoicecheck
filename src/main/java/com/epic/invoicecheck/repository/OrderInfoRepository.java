@@ -12,4 +12,7 @@ public interface OrderInfoRepository extends JpaRepository<OrderInfo, Long> {
     @Query("select u from OrderInfo u where u.cOrderNr = ?1 and u.firmNr = ?2")
     List<OrderInfo> findByCOrderNrAndFirmNr(String cOrderNr, String firmNr);
 
+
+
+
 }

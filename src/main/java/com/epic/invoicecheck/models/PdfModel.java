@@ -286,12 +286,12 @@ public class PdfModel extends AbstractPdfModel {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Phrase(car.getPrin().toString(), font));
+                cell = new PdfPCell(new Phrase(car.getFakt().toString(), font));
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Phrase(car.getPrinCase().toString(), font));
+                cell = new PdfPCell(new Phrase(car.getPrin().toString(), font));
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
