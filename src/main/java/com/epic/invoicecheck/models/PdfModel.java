@@ -65,7 +65,7 @@ public class PdfModel extends AbstractPdfModel {
 
 
             Paragraph paragraph7 = new Paragraph("Відправник вантажу: " + diffReport.getFName() + ", Видаткова накл.№" + diffReport.getInvoiceNr() + " від " + diffReport.getInvoiceDate() + " " +
-                    diffReport.getTtn() + " від____________202__р", font);
+                    diffReport.getTtn() + " від " + diffReport.getOrderDate() + " р.", font);
             paragraph7.setAlignment(Element.ALIGN_LEFT);
             document.add(paragraph7);
 
@@ -159,12 +159,12 @@ public class PdfModel extends AbstractPdfModel {
             hcell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             table.addCell(hcell);
 
-            hcell = new PdfPCell(new Phrase("Прийнято (дані з колонки 6, але не більше колонки 4)", font));
+            hcell = new PdfPCell(new Phrase("Прийнято", font));
             hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
             hcell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             table.addCell(hcell);
 
-            hcell = new PdfPCell(new Phrase("Кількість (мінусовий результа колонок 7 - 5)", font));
+            hcell = new PdfPCell(new Phrase("Кількість (мінусовий результат колонок 7 - 5)", font));
             hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
             hcell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             table.addCell(hcell);
@@ -332,9 +332,9 @@ public class PdfModel extends AbstractPdfModel {
 
             document.add(paragraph1);
 
-            Paragraph paragraph11 = new Paragraph("Підпис членів комісії: \t\t1.__________________/_____________________\n" +
-                    "                                   \t\t 2.__________________/_____________________\n" +
-                    "                                   \t\t 3.__________________/_____________________\n" +
+            Paragraph paragraph11 = new Paragraph("Підпис членів комісії: \t\t1.__________________/_____________________\n" + "\n" +
+                    "                                   \t\t 2.__________________/_____________________\n" + "\n" +
+                    "                                   \t\t 3.__________________/_____________________\n\n" +
                     "                                        \t\t (Підпис)                      (Прізвище)\n", font);
             document.add(paragraph11);
 

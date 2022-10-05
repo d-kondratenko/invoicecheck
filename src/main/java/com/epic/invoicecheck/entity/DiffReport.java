@@ -29,5 +29,6 @@ public class DiffReport {
     private String izlish;
     private String notinorder;
     private String brak;
+    private String orderDate;
 
 }

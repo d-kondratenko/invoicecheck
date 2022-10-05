@@ -3,9 +3,11 @@ package com.epic.invoicecheck.services;
 import com.epic.invoicecheck.dto.Differents;
 import com.epic.invoicecheck.dto.InvoiceData;
 import com.epic.invoicecheck.entity.DeliveryInfo;
+import com.epic.invoicecheck.entity.DiffReport;
 import com.epic.invoicecheck.entity.OrderInfo;
 import com.epic.invoicecheck.models.UploadForm;
 import com.epic.invoicecheck.repository.DeliveryInfoRepository;
+import com.epic.invoicecheck.repository.DiffReportRepository;
 import com.epic.invoicecheck.repository.DifferentsRepository;
 import com.epic.invoicecheck.repository.OrderInfoRepository;
 import lombok.AllArgsConstructor;
@@ -31,6 +33,8 @@ public class CheckService {
     private final DifferentsRepository differentsRepository;
 
     private final DeliveryInfoRepository deliveryInfoRepository;
+
+    private final DiffReportRepository diffReportRepository;
 
 
 
@@ -88,10 +92,12 @@ public class CheckService {
             for (int j = 0; j < infoList.size(); j++) {
                 OrderInfo inf = infoList.get(j);
                 log.info("get order data");
-                if (dat.getProductNr().equals(inf.getProductNr())) {
+                if ((dat.getProductNr().equals(inf.getProductNr()))) {
                     log.info("chek product equals");
-                    if (dat.getQuantity() != inf.getQuantity()) {
+                    if ( (dat.getQuantity() != inf.getQuantity()) || (dat.getQuantityFakt() != inf.getQuantity())) {
                         log.info("chek quantity equals");
+                        log.info(dat.getProductNr() + " " + dat.getQuantity());
+                        log.info(inf.getProductNr() + " " + inf.getQuantity());
                         Differents differents = Differents.builder().productNr(dat.getProductNr())
                                 .quantityInvoice(dat.getQuantity())
                                 .quantityOrder(inf.getQuantity())
@@ -102,34 +108,12 @@ public class CheckService {
                                 .quantityFakt(dat.getQuantityFakt())
                                 .build();
                         log.info(differents.toString());
-                        dataList.remove(i);
                         differentsRepository.save(differents);
                         differentsList.add(differents);
                     }
                 }
             }
         }
-
-            if(!dataList.isEmpty()) {
-                for (int k = 0; k < dataList.size(); k++) {
-                    InvoiceData dat1 = dataList.get(k);
-                    Differents differents = Differents.builder().productNr(dat1.getProductNr())
-                            .quantityInvoice(dat1.getQuantity())
-                            .quantityOrder(0.0)
-                            .deliveryId(deliveryInfo.getDeliveryId())
-                            .invoiceNr(uploadForm.getInvoiceNr())
-                            .invoiceDate(uploadForm.getInvoiceDate())
-                            .brack(dat1.getBrack())
-                            .quantityFakt(dat1.getQuantityFakt())
-                            .build();
-                    log.info(differents.toString());
-                    dataList.remove(k);
-                    differentsRepository.save(differents);
-                    differentsList.add(differents);
-                }
-            }
-
-
 
         return differentsList;
     }

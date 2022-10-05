@@ -43,6 +43,7 @@ public class UploadController {
             RedirectView redirectView = new RedirectView();
             log.info("redirect");
             redirectView.setUrl("/invoicecheck/report/" + delInfo.getDeliveryId());
+           // redirectView.setUrl("/report/" + delInfo.getDeliveryId());
             log.info(redirectView.getUrl());
             log.info("set url");
             return redirectView;
