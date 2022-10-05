@@ -40,7 +40,7 @@ public class PdfModel extends AbstractPdfModel {
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
 
-            Paragraph paragraph2 = new Paragraph("від \"___\" __________ 202_ року", font);
+            Paragraph paragraph2 = new Paragraph("від \"___\" __________ 20___ року", font);
             paragraph2.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph2);
 
@@ -76,7 +76,7 @@ public class PdfModel extends AbstractPdfModel {
             document.add(paragraph8);
 
 
-            Paragraph paragraph9 = new Paragraph("Прийом товару розпочато:________________________202__року. Виявлені наступні розходження при прийомі товару:", font);
+            Paragraph paragraph9 = new Paragraph("Прийом товару розпочато:________________________20___року. Виявлені наступні розходження при прийомі товару:", font);
             paragraph9.setAlignment(Element.ALIGN_LEFT);
             document.add(paragraph9);
 
@@ -327,14 +327,14 @@ public class PdfModel extends AbstractPdfModel {
 
             document.add(paragraph1);
 
-            Paragraph paragraph10 = new Paragraph("Прийом товару закінчено: _____________202__року", font);
+            Paragraph paragraph10 = new Paragraph("Прийом товару закінчено: _____________20___ року", font);
             document.add(paragraph10);
 
             document.add(paragraph1);
 
             Paragraph paragraph11 = new Paragraph("Підпис членів комісії: \t\t1.__________________/_____________________\n" + "\n" +
                     "                                   \t\t 2.__________________/_____________________\n" + "\n" +
-                    "                                   \t\t 3.__________________/_____________________\n\n" +
+                    "                                   \t\t 3.__________________/_____________________\n" +
                     "                                        \t\t (Підпис)                      (Прізвище)\n", font);
             document.add(paragraph11);
 
