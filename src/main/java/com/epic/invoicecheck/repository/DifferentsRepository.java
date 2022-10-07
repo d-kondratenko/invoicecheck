@@ -1,6 +1,6 @@
 package com.epic.invoicecheck.repository;
 
-import com.epic.invoicecheck.dto.Differents;
+import com.epic.invoicecheck.entity.Differents;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

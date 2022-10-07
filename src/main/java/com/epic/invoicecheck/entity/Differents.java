@@ -1,4 +1,4 @@
-package com.epic.invoicecheck.dto;
+package com.epic.invoicecheck.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

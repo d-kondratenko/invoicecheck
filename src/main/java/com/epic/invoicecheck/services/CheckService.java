@@ -1,9 +1,8 @@
 package com.epic.invoicecheck.services;
 
-import com.epic.invoicecheck.dto.Differents;
+import com.epic.invoicecheck.entity.Differents;
 import com.epic.invoicecheck.dto.InvoiceData;
 import com.epic.invoicecheck.entity.DeliveryInfo;
-import com.epic.invoicecheck.entity.DiffReport;
 import com.epic.invoicecheck.entity.OrderInfo;
 import com.epic.invoicecheck.models.UploadForm;
 import com.epic.invoicecheck.repository.DeliveryInfoRepository;
