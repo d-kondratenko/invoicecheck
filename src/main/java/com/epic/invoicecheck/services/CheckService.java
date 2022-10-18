@@ -54,30 +54,31 @@ public class CheckService {
         ArrayList<InvoiceData> invoiceDataList = new ArrayList<>();
         for(int i = 1; i < sheet.getPhysicalNumberOfRows(); i++){
             Row row = sheet.getRow(i);
-            InvoiceData invoiceData = new InvoiceData();
-            for (int j = 0; j < row.getPhysicalNumberOfCells(); j++){
-                DataFormatter formatter = new DataFormatter();
-                if(j == 0){
-                    invoiceData.setProductNr(formatter.formatCellValue(row.getCell(j)));
-                }
-                else if (j == 1) {
-                    invoiceData.setQuantity(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
-                } else if (j == 2) {
-                    if(formatter.formatCellValue(row.getCell(j)).isEmpty()){
-                        invoiceData.setBrack(0.0);
-                    } else{
-                        invoiceData.setBrack(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
-                    }
-                } else {
-                    if(formatter.formatCellValue(row.getCell(j)).isEmpty()){
-                        invoiceData.setQuantityFakt(0.0);
+            if (row != null) {
+                InvoiceData invoiceData = new InvoiceData();
+                for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
+                    DataFormatter formatter = new DataFormatter();
+                    if (j == 0) {
+                        invoiceData.setProductNr(formatter.formatCellValue(row.getCell(j)));
+                    } else if (j == 1) {
+                        invoiceData.setQuantity(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
+                    } else if (j == 2) {
+                        if (formatter.formatCellValue(row.getCell(j)).isEmpty()) {
+                            invoiceData.setBrack(0.0);
+                        } else {
+                            invoiceData.setBrack(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
+                        }
                     } else {
-                        invoiceData.setQuantityFakt(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
+                        if (formatter.formatCellValue(row.getCell(j)).isEmpty()) {
+                            invoiceData.setQuantityFakt(0.0);
+                        } else {
+                            invoiceData.setQuantityFakt(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
+                        }
                     }
                 }
+                invoiceDataList.add(invoiceData);
             }
 
-            invoiceDataList.add(invoiceData);
         }
         return invoiceDataList;
     }
