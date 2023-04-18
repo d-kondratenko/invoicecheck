@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Slf4j
 public class PdfModel extends AbstractPdfModel {
-    public static final String FONT = "font/FreeSans.ttf";
+    public static final String FONT = "fonts/FreeSans.ttf";
 
     @Override
     protected void buildPdfDocument(Map<String, Object> model,
@@ -316,7 +316,7 @@ public class PdfModel extends AbstractPdfModel {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Phrase(" "));
+                cell = new PdfPCell(new Phrase(car.getPosComment(),font));
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
@@ -332,16 +332,19 @@ public class PdfModel extends AbstractPdfModel {
 
             document.add(paragraph1);
 
-            Paragraph paragraph11 = new Paragraph("Підпис членів комісії: \t\t1.__________________/_____________________\n" + "\n" +
+            Paragraph paragraph11 = new Paragraph("Підпис членів комісії: \t\t1.__________________/_____________________ \t\t2.__________________/_____________________ \t\t3.__________________/_____________________ \n" +
+                    "                                        (Підпис)                     (Прізвище)                                    (Підпис)                     (Прізвище)                            (Підпис)                     (Прізвище)" + "\n" +
+                    "Особи які підписали даний акт несуть відповідальність за достовірність фактів наведених у акті",font);
+
+            /*Paragraph paragraph11 = new Paragraph("Підпис членів комісії: \t\t1.__________________/_____________________\n" + "\n" +
                     "                                   \t\t 2.__________________/_____________________\n" + "\n" +
                     "                                   \t\t 3.__________________/_____________________\n" +
-                    "                                        \t\t (Підпис)                      (Прізвище)\n", font);
+                    "                                        \t\t (Підпис)                      (Прізвище)\n", font);*/
             document.add(paragraph11);
 
-            document.add(paragraph1);
+//            document.add(paragraph1);
 
-            document.add(new Paragraph("Особи які підписали даний акт несуть відповідальність за достовірність фактів наведених у акті", font));
-
+//            document.add(new Paragraph("Особи які підписали даний акт несуть відповідальність за достовірність фактів наведених у акті", font));
 
     }
 }

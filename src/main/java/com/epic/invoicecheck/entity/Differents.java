@@ -14,7 +14,8 @@ import javax.persistence.*;
 @Table(name = "lct_invoice_differents")
 @Builder
 public class Differents {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(sequenceName = "lcs_invoice_differents",name = "lcs_invoice_differents",allocationSize = 1)
+    @GeneratedValue(generator = "lcs_invoice_differents")
     @Id
     private Long recId;
     private Long deliveryId;
@@ -25,4 +26,5 @@ public class Differents {
     private String invoiceNr;
     private String invoiceDate;
     private double quantityFakt;
+    private String posComment;
 }

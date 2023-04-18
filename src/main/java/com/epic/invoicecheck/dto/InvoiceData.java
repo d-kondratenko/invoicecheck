@@ -12,4 +12,5 @@ public class InvoiceData {
     double quantity;
     double brack;
     double quantityFakt;
+    String posComment;
 }

@@ -30,5 +30,6 @@ public class DiffReport {
     private String notinorder;
     private String brak;
     private String orderDate;
+    private String posComment;
 
 }
