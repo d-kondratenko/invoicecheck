@@ -6,10 +6,10 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -54,8 +54,8 @@ public class PdfModel extends AbstractPdfModel {
             document.add(paragraph4);
 
 
-            Paragraph paragraph5 = new Paragraph("(П.І.Б, посада)", font);
-            paragraph5.setAlignment(Element.ALIGN_CENTER);
+            Paragraph paragraph5 = new Paragraph("                                          (П.І.Б, посада)                                     (П.І.Б, посада)                                      (П.І.Б, посада)", font);
+            paragraph5.setAlignment(Element.ALIGN_LEFT);
             document.add(paragraph5);
 
 

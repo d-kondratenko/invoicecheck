@@ -1,11 +1,10 @@
 package com.epic.invoicecheck.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @AllArgsConstructor
 @Data
@@ -27,4 +26,5 @@ public class Differents {
     private String invoiceDate;
     private double quantityFakt;
     private String posComment;
+    private double quntitySurPlus;
 }

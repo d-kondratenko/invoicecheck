@@ -36,20 +36,31 @@ public class UploadController {
     }
 
     @PostMapping
-    public Object postUpload(@RequestParam("file") MultipartFile file, @ModelAttribute UploadForm uploadForm, Model model) throws IOException, JRException {
-        if (checkService.startChecking(file, uploadForm).isEmpty()) {
-            model.addAttribute("uploadform", new UploadForm());
-            model.addAttribute("msg", new UploadMessage("No difference between order and invoice"));
-            return "uploadform";
-        } else {
-            DeliveryInfo delInfo = deliveryInfoRepository.findByOrderNrAndSupplireNr(uploadForm.getOrderNr(), uploadForm.getSupplireNr());
-            RedirectView redirectView = new RedirectView();
-            log.info("redirect");
-            redirectView.setUrl("/invoicecheck/report/" + delInfo.getDeliveryId());
+    public Object postUpload(@RequestParam("file") MultipartFile file, @ModelAttribute UploadForm uploadForm, Model model) throws IOException {
+
+        try {
+            if (!checkService.checkDelivExists(uploadForm)) {
+                model.addAttribute("uploadform", new UploadForm());
+                model.addAttribute("msg", new UploadMessage("Delivery not found or No accepted lu found"));
+                return "uploadform";
+            } else if (checkService.startChecking(file, uploadForm).isEmpty()) {
+                model.addAttribute("uploadform", new UploadForm());
+                model.addAttribute("msg", new UploadMessage("No difference between order and invoice"));
+                return "uploadform";
+            } else {
+                DeliveryInfo delInfo = deliveryInfoRepository.findByOrderNrAndSupplireNr(uploadForm.getOrderNr(), uploadForm.getSupplireNr());
+                RedirectView redirectView = new RedirectView();
+                log.info("redirect");
+                redirectView.setUrl("/invoicecheck/report/" + delInfo.getDeliveryId());
 //            redirectView.setUrl("/report/" + delInfo.getDeliveryId());
-            log.info(redirectView.getUrl());
-            log.info("set url");
-            return redirectView;
+                log.info(redirectView.getUrl());
+                log.info("set url");
+                return redirectView;
+            }
+        } catch (Exception e){
+            model.addAttribute("error",e.getMessage());
+            model.addAttribute("status","500");
+            return "500і";
         }
     }
 

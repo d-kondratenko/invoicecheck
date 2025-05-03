@@ -11,6 +11,8 @@ public class InvoiceData {
     String productNr;
     double quantity;
     double brack;
+    double quntitySurPlus;
     double quantityFakt;
     String posComment;
+
 }

@@ -43,8 +43,17 @@ public class CheckService {
         List<OrderInfo> orderInfoList = orderInfoRepository.findByCOrderNrAndFirmNr(uploadForm.getOrderNr(), uploadForm.getSupplireNr());
         DeliveryInfo deliveryInfo = deliveryInfoRepository.findByOrderNrAndSupplireNr(uploadForm.getOrderNr(), uploadForm.getSupplireNr());
         differentsRepository.deleteByDeliveryId(deliveryInfo.getDeliveryId());
-        List<Differents> differentsList = getDiff(invoiceDataList, orderInfoList, deliveryInfo, uploadForm);
+        List<Differents> differentsList  = getDiff(invoiceDataList, orderInfoList, deliveryInfo, uploadForm);
         return differentsList;
+    }
+
+    public boolean checkDelivExists(UploadForm uploadForm){
+        DeliveryInfo deliveryInfo = deliveryInfoRepository.findByOrderNrAndSupplireNr(uploadForm.getOrderNr(), uploadForm.getSupplireNr());
+        if(deliveryInfo == null){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public ArrayList<InvoiceData> xlsxToArray(MultipartFile file) throws IOException {
@@ -73,9 +82,9 @@ public class CheckService {
                         }
                     } else if (j == 3){
                         if (formatter.formatCellValue(row.getCell(j)).isEmpty()) {
-                            invoiceData.setQuantityFakt(0.0);
+                            invoiceData.setQuntitySurPlus(0.0);
                         } else {
-                            invoiceData.setQuantityFakt(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
+                            invoiceData.setQuntitySurPlus(Double.parseDouble(formatter.formatCellValue(row.getCell(j))));
                         }
                     } else {
                         invoiceData.setPosComment(String.valueOf(row.getCell(j)));
@@ -96,7 +105,7 @@ public class CheckService {
                     OrderInfo inf = infoList.get(j);
 
                     if ((dat.getProductNr().equals(inf.getProductNr()))) {
-                        if ((dat.getQuantity() != inf.getQuantity()) || (dat.getQuantityFakt() != inf.getQuantity())) {
+                        if ((dat.getQuantity() != inf.getQuantity()) || ( (dat.getQuntitySurPlus() + dat.getBrack() + inf.getQuantity()) != inf.getQuantity())) {
                             Differents differents = Differents.builder().productNr(dat.getProductNr())
                                     .quantityInvoice(dat.getQuantity())
                                     .quantityOrder(inf.getQuantity())
@@ -104,14 +113,16 @@ public class CheckService {
                                     .invoiceNr(uploadForm.getInvoiceNr())
                                     .invoiceDate(uploadForm.getInvoiceDate())
                                     .brack(dat.getBrack())
-                                    .quantityFakt(dat.getQuantityFakt())
+                                    .quantityFakt(dat.getQuntitySurPlus() + dat.getBrack() + inf.getQuantity())
                                     .posComment(dat.getPosComment())
+                                    .quntitySurPlus(dat.getQuntitySurPlus())
                                     .build();
                             differentsRepository.save(differents);
                             differentsList.add(differents);
                         }
                         infoList.remove(inf);
                         dat.setPosComment("FI");
+                        dat.setQuantityFakt(dat.getQuntitySurPlus() + dat.getBrack() + inf.getQuantity());
                     }
 
                 }
@@ -126,6 +137,7 @@ public class CheckService {
                             .brack(dat.getBrack())
                             .quantityFakt(dat.getQuantityFakt())
                             .posComment(dat.getPosComment())
+                            .quntitySurPlus(dat.getQuntitySurPlus())
                             .build();
                     differentsRepository.save(differents);
                     differentsList.add(differents);
@@ -142,6 +154,7 @@ public class CheckService {
                         .brack(0)
                         .quantityFakt(info.getQuantity())
                         .posComment("")
+                        .quntitySurPlus(0)
                         .build();
                 differentsRepository.save(differents);
                 differentsList.add(differents);

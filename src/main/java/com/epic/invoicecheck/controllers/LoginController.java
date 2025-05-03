@@ -28,12 +28,10 @@ public class LoginController {
 //    @CrossOrigin
     @PostMapping("/login")
     public Object loginSuccesful(@ModelAttribute LoginForm loginForm, Model model){
-        log.info(loginForm.getUserName());
-        log.info(String.valueOf(loginService.chekPwd(loginForm.getUserName(),loginForm.getPassword())));
         if(loginService.chekPwd(loginForm.getUserName(),loginForm.getPassword())){
-            log.info("redirect");
            RedirectView redirectView = new RedirectView();
            redirectView.setUrl("/invoicecheck/uploadform");
+//           redirectView.setUrl("/uploadform");
             return redirectView;
         } else {
             model.addAttribute("login",new LoginForm());
